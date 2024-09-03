@@ -138,7 +138,7 @@
         <guava.version>33.2.1-jre</guava.version>
         <gson.version>2.11.0</gson.version>
         <google-oauth.version>1.35.0</google-oauth.version>
-        <google-api-client.version>2.6.0</google-api-client.version>
+        <google-api-client.version>2.7.0</google-api-client.version>
         <google-auth-library-oauth2-http.version>1.23.0</google-auth-library-oauth2-http.version>
         <amaxzon-aws-version>1.12.744</amaxzon-aws-version>
         <spring-ai-bom.version>1.0.0-SNAPSHOT</spring-ai-bom.version>
