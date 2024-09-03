@@ -1,0 +1,131 @@
+#
+# Server Properties
+#
+server:
+  port: 8083
+
+#
+# Management Properties
+#
+management:
+  server:
+    port: 8083
+
+spring:
+  #
+  # Database Properties
+  #
+  datasource:
+    host: iced-latte-postgresdb
+    port: 5432
+    name: testdb
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.name}?serverTimezone=UTC
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql:
+      true
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog-master.yaml
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    drop-first: true
+  #
+  # Spring AI Properties
+  #
+  ai:
+    openai:
+      api-key: "sk-proj-"
+      prompt: "You are an assistant who checks texts for appropriateness.
+            Analyze the following text {review} and determine if it contains political statements,
+            non-English language, or inappropriate language.
+            If you find any of these issues, return the phrase 'not appropriate', after return the reason in curly brackets. 
+            Only the reason should be in curly brackets.
+            Else return OK"
+    chat:
+      options:
+        model: gpt-3.5-turbo
+
+  #
+  # Aws Properties
+  #
+  aws:
+    access-key: vbfgngfdndgndgndgndgndgndgndg
+    secret-key: vbfgngfdndgndgndgndgndgndgndg
+    region: eu-west-1
+    buckets:
+      products: products
+      user-avatar: users
+    link-expiration-time: P7D
+    read-timeout: 10s
+    connect-timeout: 10s
+    write-timeout: 60s
+    secure: false
+    default-image-directory:
+      products: ./products
+
+  #
+  # Redis
+  #
+  data:
+    redis:
+      host: localhost
+      port: 6380
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: youricedlatteshop@gmail.com
+    password: 35346432634
+
+#
+# Temporary Cache
+#
+temporary-cache:
+  time:
+    token: 5
+  get-token-enabled: true
+
+#
+# JWT Security Properties
+#
+jwt:
+  header: Authorization
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  expiration: 1800000
+  email: jane@example.com
+  password: pass54321
+  refresh:
+    secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+    expiration: 604800000 # 7 days
+
+#
+# AI Properties
+#
+ai:
+  # https://platform.openai.com/docs/api-reference/moderations/create
+  url: "https://api.openai.com/v1/moderations"
+  api_key: "sk-api-key"
+  request_body: '{ "input": "$message"}'
+  message_replacement_pattern: "$message"
+
+#
+# Google Auth Properties
+#
+google:
+  auth:
+    server:
+      url: "https://accounts.google.com/o/oauth2/v2/auth"
+  scope: "https://www.googleapis.com/auth/userinfo.profile"
+  client-id: "sk-api-client"
+  client-secret: "sk-api-secret"
+  authenticateUri: "http://localhost:8083/auth/login"
+  redirectUri: "http://localhost:8083"
+
+stripe:
+  secret-key: "sk_test_51PJxciHA4AopuQMMeXaJNETc7RUAITeMTKJei07L8iEHrRiWLQalKsr756dnOzmKPUXufkUVNUSaiPyktJG9dGY500x0cM817f"
+  webhook-secret: "sk-test-secret"

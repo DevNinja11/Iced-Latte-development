@@ -1,0 +1,438 @@
+openapi: "3.0.3"
+
+info:
+  title: "Iced-Latte Product API"
+  description: "API for interacting with Iced Latte's product catalog, including retrieving and listing products. Supports filtering, sorting, and pagination of product data."
+  version: "1.0.0"
+  contact:
+    name: "Iced Latte Support"
+    email: "zufar.sunagatov@gmail.com"
+
+servers:
+  - url: "http://localhost:8083"
+    description: "Local development server"
+  - url: "https://iced-latte.uk/backend"
+    description: "Production server"
+
+tags:
+  - name: "Product"
+    description: "API endpoints related to product management and retrieval."
+
+paths:
+  /api/v1/products/{productId}:
+    get:
+      tags:
+        - "Product"
+      summary: "Retrieve a product by its unique ID"
+      description: "Fetch detailed information of a product using its unique identifier."
+      operationId: "getProductById"
+      parameters:
+        - name: "productId"
+          in: "path"
+          required: true
+          description: "Unique identifier of the product."
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        "200":
+          description: "Product details successfully retrieved."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductInfoDto"
+        "404":
+          description: "Product not found for the given ID."
+        "500":
+          description: "Internal server error."
+
+  /api/v1/products/sellers:
+    get:
+      tags:
+        - "Product"
+      summary: "List all product sellers"
+      description: "Retrieve a list of all sellers from the hardcoded data."
+      operationId: "getAllSellers"
+      responses:
+        "200":
+          description: "List of all product sellers retrieved successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SellersDto"
+        "500":
+          description: "Internal server error."
+
+  /api/v1/products/brands:
+    get:
+      tags:
+        - "Product"
+      summary: "List all product brands"
+      description: "Retrieve a list of all brands from the hardcoded data."
+      operationId: "getAllBrands"
+      responses:
+        "200":
+          description: "List of all product brands retrieved successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BrandsDto"
+        "500":
+          description: "Internal server error."
+
+  /api/v1/products:
+    get:
+      tags:
+        - "Product"
+      summary: "List products with pagination, sorting, and filtering"
+      description: "Retrieve a paginated list of products with optional sorting and filtering parameters."
+      operationId: "getProducts"
+      parameters:
+        - name: "page"
+          description: "The page number (starting from 0) for pagination. Possible allowed values: 1) page=0 or 2) page=1 or 3) any other non negative value."
+          in: "query"
+          required: false
+          schema:
+            type: "integer"
+            format: "int32"
+            default: 0
+          examples:
+            example1:
+              description: "Retrieve the first page of product's list."
+              value: "page=0"
+            example2:
+              description: "Retrieve the second page of product's list."
+              value: "page=1"
+        - name: "size"
+          description: "The number of products per page. Possible allowed values: 1) size=3 or 2) size=15 or 3) any other non negative value."
+          in: "query"
+          required: false
+          schema:
+            type: "integer"
+            format: "int32"
+            default: 50
+          examples:
+            example1:
+              description: "Display only 3 products per page in the product list."
+              value: "size=3"
+            example2:
+              description: "Display only 15 products per page in the product list."
+              value: "size=15"
+        - name: "sort_attribute"
+          description: "The field name of the product by which the results should be sorted. Possible allowed values: 1) sort_attribute=name or 2) sort_attribute=price or 3) sort_attribute=quantity or 4) sort_attribute=averageRating or 5) sort_attribute=reviewsCount."
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "name"
+          examples:
+            example1:
+              description: "Display the product list sorted by the provided sort attribute 'name' (the product's name)."
+              value: "sort_attribute=name"
+            example2:
+              description: "Display the product list sorted by the provided sort attribute 'price' (the product's price)."
+              value: "sort_attribute=price"
+            example3:
+              description: "Display the product list sorted by the provided sort attribute 'quantity' (the product's quantity)."
+              value: "sort_attribute=quantity"
+            example4:
+              description: "Display the product list sorted by the provided sort attribute 'averageRating' (the product's averageRating)."
+              value: "sort_attribute=averageRating"
+            example5:
+              description: "Display the product list sorted by the provided sort attribute 'reviewsCount' (the product's reviewsCount)."
+              value: "sort_attribute=reviewsCount"
+        - name: "sort_direction"
+          description: "The direction of sorting. Possible allowed values: 1) sort_direction=asc or 2) sort_direction=disc."
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "asc"
+          examples:
+            example1:
+              description: "Display the product list in ascending order."
+              value: "sort_direction=asc"
+            example2:
+              description: "Display the product list in descending order."
+              value: "sort_direction=disc"
+        - name: "min_price"
+          description: "Filter products by the lower limit of the product's price. Possible allowed values: 1) min_price=5 or 2) min_price=17.25 or 3) any other non negative integer or decimal number value."
+          in: "query"
+          required: false
+          schema:
+            type: "number"
+            format: "decimal"
+          examples:
+            example1:
+              description: "Display the product list filtered by the lower limit of the product's price (min_price=5)."
+              value: "min_price=5"
+            example2:
+              description: "Display the product list filtered by the lower limit of the product's price (min_price=17.25)."
+              value: "min_price=17.25"
+        - name: "max_price"
+          description: "Filter products by the upper limit of the product's price. Possible allowed values: 1) max_price=5 or 2) max_price=17.25 or 3) any other non negative integer or decimal number value."
+          in: "query"
+          required: false
+          schema:
+            type: "number"
+            format: "decimal"
+          examples:
+            example1:
+              description: "Display the product list filtered by the upper limit of the product's price (max_price=5)."
+              value: "max_price=5"
+            example2:
+              description: "Display the product list filtered by the upper limit of the product's price (max_price=17.25)."
+              value: "max_price=17.25"
+        - name: "minimum_average_rating"
+          description: "Filter products by the minimum average rating.
+          Possible allowed values: 1) minimum_average_rating=1 or 2) minimum_average_rating=2 or 3) minimum_average_rating=3 or 4) minimum_average_rating=4 "
+          in: "query"
+          required: false
+          schema:
+            type: "integer"
+            format: "int32"
+          examples:
+            example1:
+              description: "Display the product list filtered by the minimum average rating of a product (minimum_average_rating=1)."
+              value: "minimum_average_rating=1"
+            example2:
+              description: "Display the product list filtered by the minimum average rating of a product (minimum_average_rating=2)."
+              value: "minimum_average_rating=2"
+            example3:
+              description: "Display the product list filtered by the minimum average rating of a product (minimum_average_rating=3)."
+              value: "minimum_average_rating=3"
+            example4:
+              description: "Display the product list filtered by the minimum average rating of a product (minimum_average_rating=4)."
+              value: "minimum_average_rating=4"
+        - name: "brand_names"
+          description: "Filter products by selected brand names (comma-separated list). Possible allowed values: 1) brand_names=Starbucks or 2) brand_names=Starbucks,Folgers or 3) any other comma-separated list"
+          examples:
+            example1:
+              description: "Display the product list filtered by selected brand names (brand_names=Starbucks,Folgers)."
+              value: "brand_names=Starbucks,Folgers"
+            example2:
+              description: "Display the product list filtered by selected brand names (brand_names=Starbucks)."
+              value: "brand_names=Starbucks"
+          in: "query"
+          required: false
+          schema:
+            type: "array"
+            items:
+              type: "string"
+        - name: "seller_names"
+          description: "Filter products by selected seller names (comma-separated list). Possible allowed values: 1) seller_names=BeanBrewers,JavaBeanCoffee,MorningMug or 2) seller_names=BeanBrewers or 3) any other comma-separated list"
+          in: "query"
+          required: false
+          schema:
+            type: "array"
+            items:
+              type: "string"
+          examples:
+            example1:
+              description: "Display the product list filtered by selected brand names (seller_names=BeanBrewers,JavaBeanCoffee,MorningMug)."
+              value: "seller_names=BeanBrewers,JavaBeanCoffee,MorningMug"
+            example2:
+              description: "Display the product list filtered by selected brand names (seller_names=BeanBrewers)."
+              value: "seller_names=BeanBrewers"
+      responses:
+        "200":
+          description: "Paginated list of products retrieved successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductListWithPaginationInfoDto"
+        "400":
+          description: "Invalid parameters provided."
+        "500":
+          description: "Internal server error."
+
+  /api/v1/products/ids:
+    post:
+      tags:
+        - "Product"
+      summary: "Retrieve products by their IDs"
+      description: "Fetch a list of products based on a list of unique identifiers."
+      operationId: "getProductsByIds"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductIdsDto"
+      responses:
+        "200":
+          description: "List of products retrieved successfully."
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/ProductInfoDto"
+        "400":
+          description: "Invalid parameters provided."
+        "500":
+          description: "Internal server error."
+
+components:
+  schemas:
+    ProductInfoDto:
+      type: "object"
+      required:
+        - id
+        - name
+        - description
+        - price
+        - quantity
+        - active
+        - averageRating
+        - reviewsCount
+        - brandName
+        - sellerName
+        - originCountry
+        - weight
+        - lengthSize
+        - widthSize
+        - heightSize
+        - soldProductsCount
+        - discount
+        - dateAdded
+        - popularityScore
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+          description: "Unique identifier for the product."
+        name:
+          type: "string"
+          description: "Name of the product."
+        description:
+          type: "string"
+          description: "Description of the product."
+        price:
+          type: "number"
+          format: "decimal"
+          description: "Price of the product."
+        quantity:
+          type: "integer"
+          format: "int32"
+          description: "Available quantity of the product."
+        active:
+          type: "boolean"
+          description: "Indicates if the product is active."
+        productFileUrl:
+          type: "string"
+          description: "URL of the product's image or file."
+        averageRating:
+          type: "number"
+          format: "decimal"
+          description: "Average rating of the product."
+        reviewsCount:
+          type: "integer"
+          format: "int32"
+          description: "Number of reviews for the product."
+        brandName:
+          type: "string"
+          description: "Brand of the product."
+        sellerName:
+          type: "string"
+          description: "Seller of the product."
+        originCountry:
+          type: "string"
+          description: "Country where the product is manufactured."
+        weight:
+          type: "integer"
+          format: "int32"
+          description: "Weight of the product."
+        lengthSize:
+          type: "integer"
+          format: "int32"
+          description: "Length size of the product."
+        widthSize:
+          type: "integer"
+          format: "int32"
+          description: "Width size of the product."
+        heightSize:
+          type: "integer"
+          format: "int32"
+          description: "Height size of the product."
+        soldProductsCount:
+          type: "integer"
+          format: "int32"
+          description: "Number of products sold."
+        discount:
+          type: "integer"
+          format: "int32"
+          description: "Discount applied to the product."
+        dateAdded:
+          type: "string"
+          format: "date-time"
+          description: "Date and time when the product was added."
+        popularityScore:
+          type: "integer"
+          format: "int32"
+          description: "Popularity score of the product."
+
+    ProductListWithPaginationInfoDto:
+      type: "object"
+      required:
+        - products
+        - page
+        - size
+        - totalElements
+        - totalPages
+      properties:
+        products:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/ProductInfoDto"
+          description: "List of products."
+        page:
+          type: "integer"
+          format: "int32"
+          description: "Current page number."
+        size:
+          type: "integer"
+          format: "int32"
+          description: "Number of products per page."
+        totalElements:
+          type: "integer"
+          format: "int64"
+          description: "Total number of products."
+        totalPages:
+          type: "integer"
+          format: "int32"
+          description: "Total number of pages."
+
+    ProductIdsDto:
+      type: "object"
+      required:
+        - productIds
+      properties:
+        productIds:
+          type: "array"
+          items:
+            type: "string"
+            format: "uuid"
+          description: "List of product IDs."
+
+    SellersDto:
+      type: "object"
+      required:
+        - sellers
+      properties:
+        sellers:
+          type: "array"
+          items:
+            type: "string"
+          description: "List of product sellers."
+
+    BrandsDto:
+      type: "object"
+      required:
+        - brands
+      properties:
+        brands:
+          type: "array"
+          items:
+            type: "string"
+          description: "List of product brands."

@@ -1,0 +1,218 @@
+
+#
+# Server Properties
+#
+server:
+  port: ${APP_SERVER_PORT}
+  tomcat:
+    accept-count: 100
+
+#
+# Spring Properties
+#
+spring:
+  application:
+    name: Iced Latte Application
+  banner:
+    charset: UTF-8
+    location: classpath:banner.txt
+  output:
+    ansi:
+      enabled: detect
+  ai:
+    openai:
+      api-key: ${SPRING_AI_OPENAI_API_KEY}
+      prompt: "You are an assistant who checks texts for appropriateness.
+            Analyze the following text {review} and determine if it contains political statements,
+            non-English language, or inappropriate language.
+            If you find any of these issues, return the phrase 'not appropriate', after return the reason in curly brackets. 
+            Only the reason should be in curly brackets.
+            Else return OK"
+      chat:
+        options:
+          model: gpt-3.5-turbo
+
+  #
+  # Database Properties
+  #
+  datasource:
+    url: jdbc:postgresql://${DATASOURCE_HOST}:${DATASOURCE_PORT}/${DATASOURCE_NAME}?serverTimezone=UTC
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog-master.yaml
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    drop-first: true
+
+  #
+  # AWS Properties
+  #
+  aws:
+    access-key: ${AWS_ACCESS_KEY}
+    secret-key: ${AWS_SECRET_KEY}
+    region: ${AWS_REGION}
+    buckets:
+      products: ${AWS_PRODUCT_BUCKET}
+      user-avatar: ${AWS_USER_BUCKET}
+    link-expiration-time: P7D
+    read-timeout: 10s
+    connect-timeout: 10s
+    write-timeout: 60s
+    secure: false
+    default-image-directory:
+      products: ${AWS_DEFAULT_PRODUCT_IMAGES_PATH}
+
+  #
+  # Redis Properties
+  #
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
+  #
+  # Email Properties
+  #
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: youricedlatteshop@gmail.com
+    password: "kfcf kyba hrab nyij"
+    subject:
+      confirmation: "Iced Latte - Email Confirmation"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+  messages:
+    basename: messages/messages
+
+#
+# Temporary Cache
+#
+temporary-cache:
+  time:
+    token: 5
+  get-token-enabled: true
+
+  #
+  # Stripe API Properties
+  #
+  config:
+    import: optional:stripe.yaml
+
+stripe:
+  secret-key: ${STRIPE_SECRET_KEY}
+  webhook-secret: ${STRIPE_WEBHOOK_SECRET}
+
+  #
+  # Avatar Upload Properties
+  #
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 10MB
+      file-size-threshold: 2KB
+
+#
+# Spring Doc Properties
+#
+springdoc:
+  api-docs:
+    path: /api/docs/schema
+    enabled: true
+  swagger-ui:
+    path: /api/docs/swagger-ui
+    enabled: true
+
+#
+# Management Properties
+#
+management:
+  server:
+    port: ${server.port}
+  endpoint:
+    prometheus:
+      enabled: true
+    shutdown:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, shutdown, prometheus
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  health:
+    redis:
+      enabled: false
+
+#
+# JWT Security Properties
+#
+jwt:
+  header: Authorization
+  secret: ${APP_JWT_SECRET}
+  expiration: 86400000 # 1 day
+  refresh:
+    secret: ${APP_JWT_REFRESH_SECRET}
+    expiration: 86400000 # 1 day
+
+#
+# Login Attempts Properties
+#
+login-attempts:
+  max-attempts: 5
+  lockout-duration-minutes: 60
+
+unlock-account-scheduler-cron: '0 0/5 * * * *' # every 5 minutes
+
+#
+# Logging Properties
+#
+logging:
+  pattern:
+    file: iced-latte-backend-%d{yyyy-MM-dd}.%i.log
+  config: classpath:logback-spring.xml
+
+#
+# AI Properties
+#
+ai:
+# https://platform.openai.com/docs/api-reference/moderations/create
+  url:          "https://api.openai.com/v1/moderations"
+  api_key:      "sk-api-key"
+  request_body: '{ "input": "$message"}'
+  message_replacement_pattern: "$message"
+
+#
+# Google Auth Properties
+#
+google:
+  auth:
+    server:
+      url: "https://accounts.google.com/o/oauth2/v2/auth"
+  scope: "openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+  client-id: ${GOOGLE_AUTH_CLIENT_ID}
+  client-secret: ${GOOGLE_AUTH_CLIENT_SECRET}
+  redirectUri: ${GOOGLE_AUTH_REDIRECT_URI}
