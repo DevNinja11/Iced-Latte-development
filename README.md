@@ -32,26 +32,17 @@
 
 ## Key Features
 
--Modern Coffee Marketplace: 
-A platform designed to connect coffee lovers and sellers.
--Monolithic Architecture: 
-Utilizes a monolithic structure for streamlined development and deployment.
--Java 17: 
-Built using the latest Java version for improved performance and features.
--Spring Framework Suite: 
-Leverages various Spring technologies for robust backend functionality.
--Security Protocols: 
-Implements JWT and TLS for secure authentication and data transmission.
--Automated Migration: 
-Uses Liquibase for managing database changes seamlessly.
--Comprehensive Logging: 
-Integrates Log4j2 and Slf4j for efficient logging and monitoring.
--Extensive Testing: 
-Employs JUnit 5 and Rest Assured for thorough unit and end-to-end testing.
--Flexible Deployment: 
-Utilizes Docker containers for easy deployment via SSH.
--Community Contributions: 
-Encourages open-source collaboration and feature proposals.
+- **Modern Coffee Marketplace**: A platform designed to connect coffee lovers and sellers.
+- **Monolithic Architecture**: Utilizes a monolithic structure for streamlined development and deployment.
+- **Java 17**: Built using the latest Java version for improved performance and features.
+- **Spring Framework Suite**: Leverages various Spring technologies for robust backend functionality.
+- **Security Protocols**: Implements JWT and TLS for secure authentication and data transmission.
+- **Automated Migration**: Uses Liquibase for managing database changes seamlessly.
+- **Comprehensive Logging**: Integrates Log4j2 and Slf4j for efficient logging and monitoring.
+- **Extensive Testing**: Employs JUnit 5 and Rest Assured for thorough unit and end-to-end testing.
+- **Flexible Deployment**: Utilizes Docker containers for easy deployment via SSH.
+- **Community Contributions**: Encourages open-source collaboration and feature proposals.
+- 
 ### Quick Start
 
 To get started with the project, follow the setup instructions provided in the `START.MD` file.
