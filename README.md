@@ -6,28 +6,30 @@
 ### Tech Stack
 
 **Architecture**: Monolith  
-**Programming Language**: Java 17  
-**Frameworks**: 
-- Spring Web
-- Spring Boot 3
-- Spring Data
-- Spring Security
-- Spring Actuator
-- Spring Retry
-- Lombok
-- Apache Commons
-- Spring Mail
-- Google Guava
+**Programming Language**: ![Java 17](https://img.shields.io/badge/Java%2017-Version%2017-blue)  
 
-**Security**: JWT, TLS  
-**Migration Tool**: Liquibase  
-**Logging**: Log4j2, Slf4j  
-**Unit Tests**: JUnit 5  
-**End-to-End Tests**: Rest Assured, Test Containers  
-**Converter**: MapStruct  
-**Test Coverage**: Jacoco  
-**API Specifications**: OpenAPI + Spring Docs  
-**Validation**: Javax Validation  
+**Frameworks**:  
+![Spring Web](https://img.shields.io/badge/Spring%20Web-Framework%20for%20Java%20Web%20Apps-green)  
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-Framework%20for%20Java%20Applications-orange)  
+![Spring Data](https://img.shields.io/badge/Spring%20Data-Data%20Access%20Framework-lightgreen)  
+![Spring Security](https://img.shields.io/badge/Spring%20Security-Security%20for%20Java%20Applications-red)  
+![Spring Actuator](https://img.shields.io/badge/Spring%20Actuator-Production%20Monitoring%20Tools-blue)  
+![Spring Retry](https://img.shields.io/badge/Spring%20Retry-Retry%20Logic%20for%20Java%20Applications-lightblue)  
+![Lombok](https://img.shields.io/badge/Lombok-Code%20Boilerplate%20Reduction-ff69b4)  
+![Apache Commons](https://img.shields.io/badge/Apache%20Commons-Utility%20Libraries-darkblue)  
+![Spring Mail](https://img.shields.io/badge/Spring%20Mail-Email%20Sending%20Framework-lightgray)  
+![Google Guava](https://img.shields.io/badge/Google%20Guava-Utility%20Library%20for%20Java-ff9800)  
+
+**Security**: ![JWT](https://img.shields.io/badge/JWT-JSON%20Web%20Token-orange) | ![TLS](https://img.shields.io/badge/TLS-Transport%20Layer%20Security-brightgreen)  
+**Migration Tool**: ![Liquibase](https://img.shields.io/badge/Liquibase-Database%20Migration%20Tool-blue)  
+**Logging**: ![Log4j2](https://img.shields.io/badge/Log4j2-Logging%20Framework-red) | ![Slf4j](https://img.shields.io/badge/Slf4j-Logging%20Facade-orange)  
+**Unit Tests**: ![JUnit 5](https://img.shields.io/badge/JUnit%205-Unit%20Testing%20Framework-lightgreen)  
+**End-to-End Tests**: ![Rest Assured](https://img.shields.io/badge/Rest%20Assured-Testing%20Library-yellow) | ![Test Containers](https://img.shields.io/badge/Test%20Containers-Integration%20Testing%20Library-lightblue)  
+**Converter**: ![MapStruct](https://img.shields.io/badge/MapStruct-Java%20Bean%20Mapping%20Library-blue)  
+**Test Coverage**: ![Jacoco](https://img.shields.io/badge/Jacoco-Test%20Coverage%20Tool-orange)  
+**API Specifications**: ![OpenAPI](https://img.shields.io/badge/OpenAPI-API%20Specification%20Standard-green) + ![Spring Docs](https://img.shields.io/badge/Spring%20Docs-Spring%20API%20Documentation-orange)  
+**Validation**: ![Javax Validation](https://img.shields.io/badge/Javax%20Validation-Bean%20Validation%20API-lightgray)  
+
 
 ### Quick Start
 
