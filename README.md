@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-We have developed an online markerplace aimed at building a modern coffee. This initiative serves as a platform to enhance both our soft and hard skills while contributing to a meaningful and engaging project. This platform connects coffee lovers with artisanal coffee producers, offering a diverse selection of high-quality latte products. Users can explore various flavors, brands, and brewing methods, all in one convenient location.
+This online markerplace aimed at building a modern coffee. This initiative serves as a platform to enhance both our soft and hard skills while contributing to a meaningful and engaging project. This platform connects coffee lovers with artisanal coffee producers, offering a diverse selection of high-quality latte products. Users can explore various flavors, brands, and brewing methods, all in one convenient location.
 
 ### Tech Stack
 
@@ -43,6 +43,12 @@ We have developed an online markerplace aimed at building a modern coffee. This 
 - **Extensive Testing**: Employs JUnit 5 and Rest Assured for thorough unit and end-to-end testing.
 - **Flexible Deployment**: Utilizes Docker containers for easy deployment via SSH.
 - **Community Contributions**: Encourages open-source collaboration and feature proposals.
+
+## Snapshot:
+
+Here is the home page section of the web application.
+![WhatsApp Image 2024-09-24 at 2 34 39 PM](https://github.com/user-attachments/assets/6168f4fc-04d4-4654-a06d-09dde0333024)
+
 
 ## My Contrubutions
 I played a key role in developing the Iced-Latte project by implementing core Java technologies, including Spring Boot, Spring Data, and Spring Security, to ensure a secure and efficient backend. I also integrated logging with Log4j2 and Slf4j and established thorough testing protocols using JUnit 5 and Rest Assured. This project was a collaborative effort, and I appreciate the invaluable support from my coworkers, whose insights greatly enhanced our platform's functionality and impact within the coffee community.
